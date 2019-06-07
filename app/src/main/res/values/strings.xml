@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Review and Shared Preferences</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="default_name">Nome</string>
+    <string name="default_phone">11 91111-1111</string>
 </resources>

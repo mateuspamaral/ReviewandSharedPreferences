@@ -1,5 +1,6 @@
 package br.com.digitalhouse.reviewandsharedpreferences.login.view;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.Switch;
 
 import br.com.digitalhouse.myapplication.R;
+import br.com.digitalhouse.reviewandsharedpreferences.home.view.HomeActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -24,12 +26,24 @@ public class LoginActivity extends AppCompatActivity {
 
         initView();
 
-        SharedPreferences preferences = getSharedPreferences("APP", MODE_PRIVATE);
+        final SharedPreferences preferences = getSharedPreferences("APP", MODE_PRIVATE);
+
+        textInputLayoutEmail.getEditText().setText(preferences.getString("EMAIL", ""));
+        textInputLayoutSenha.getEditText().setText(preferences.getString("SENHA", ""));
 
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                if (switchLembrar.isChecked()){
+                    String email = textInputLayoutEmail.getEditText().getText().toString();
+                    String senha = textInputLayoutSenha.getEditText().getText().toString();
+
+                    preferences.edit().putString("EMAIL", email).commit();
+                    preferences.edit().putString("SENHA", senha).apply();
+                }
+
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
         });
 
